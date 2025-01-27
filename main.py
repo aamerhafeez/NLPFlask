@@ -7,10 +7,11 @@ app = Flask(__name__)
 CORS(app)
 
 # Download Stanza model (required only the first time)
-stanza.download('en')
+#stanza.download('en')
+stanza.download('en', package='wsj')
 
 # Load Stanza pipeline
-nlp = stanza.Pipeline('en', processors='tokenize,sentiment')
+nlp = stanza.Pipeline('en', processors='tokenize,sentiment', batch_size=8, use_gpu=False)
 
 
 @app.route('/analyze', methods=['POST'])
